@@ -1078,6 +1078,135 @@
         background-color: var(--white-color);
         color: var(--first-color);
     }
+    /* test */
+    /* تنسيق زر القائمة */
+    
+    .language-currency-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        background: #f0f0f0;
+        border-radius: 25px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background 0.3s ease-in-out;
+        width: 12rem;
+    }
+    
+    .language-currency-btn:hover {
+        background: #e0e0e0;
+    }
+    /* أيقونة العلم */
+    
+    .flag-icon {
+        width: 24px;
+        height: 16px;
+        object-fit: cover;
+    }
+    /* القائمة المنبثقة */
+    
+    .language-currency-menu {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(100%);
+        width: 100%;
+        max-width: 450px;
+        background: #0f1224;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 15px 15px 0 0;
+        padding: 20px;
+        transition: transform 0.3s ease-in-out;
+        display: none;
+        /* إخفاء القائمة في البداية */
+    }
+    /* عرض القائمة عند الفتح */
+    
+    .language-currency-menu.active {
+        transform: translateX(-50%) translateY(0);
+        display: block;
+    }
+    /* ترويسة القائمة */
+    
+    .menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    /* زر الإغلاق */
+    
+    .close-btn {
+        font-size: 24px;
+        cursor: pointer;
+    }
+    /* خيارات القائمة */
+    
+    .menu-options {
+        margin-top: 15px;
+    }
+    
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: background 0.2s ease-in-out;
+        color: white;
+    }
+    
+    .menu-item:hover {
+        background: #f5f5f5;
+    }
+    /* تصغير النصوص والأزرار على الشاشات الصغيرة */
+    
+    @media (max-width: 768px) {
+        .language-currency-btn {
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+        .flag-icon {
+            width: 20px;
+            height: 14px;
+        }
+        .language-currency-menu {
+            max-width: 100%;
+            padding: 15px;
+        }
+        .menu-item {
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+    /* دعم الهواتف الصغيرة */
+    
+    @media (max-width: 480px) {
+        .language-currency-btn {
+            font-size: 13px;
+            padding: 6px 10px;
+            width: 13rem;
+        }
+        .flag-icon {
+            width: 18px;
+            height: 12px;
+        }
+        .menu-header {
+            font-size: 16px;
+        }
+        .menu-item {
+            font-size: 13px;
+            padding: 8px;
+        }
+    }
     /*=============== QUESTIONS ===============*/
     
     .questions {
