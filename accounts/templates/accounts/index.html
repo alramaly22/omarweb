@@ -53,42 +53,38 @@
                 </div>
             </div>
 
-            {% comment %} <div class="navbar2">
-                <button class="language-btn" id="languageButton">
-                  <span class="flag-icon">🇬🇧</span>
-                  <span id="selectedLanguage">English</span> |
-                  <span id="selectedCurrency">EGP</span>
-                </button>
-              </div> {% endcomment %}
-      
-              {% comment %} <div class="popup" id="popup">
-                <span class="close-btn" onclick="togglePopup()">&times;</span>
-                <h3>اللغة</h3>
-                <label class="lang-option" onclick="selectLanguage('العربية', '🇸🇦')">
-                  <input type="radio" name="language" value="العربية" /> العربية
-                </label>
-                <label class="lang-option" onclick="selectLanguage('English', '🇬🇧')">
-                  <input type="radio" name="language" value="English" /> English
-                </label>
-                <label class="lang-option" onclick="selectLanguage('فارسی', '🇮🇷')">
-                  <input type="radio" name="language" value="فارسی" /> فارسی
-                </label>
-                <label class="lang-option" onclick="selectLanguage('Türkçe', '🇹🇷')">
-                  <input type="radio" name="language" value="Türkçe" /> Türkçe
-                </label>
-                <label class="lang-option" onclick="selectLanguage('اردو', '🇵🇰')">
-                  <input type="radio" name="language" value="اردو" /> اردو
-                </label>
-      
-                <h3>العملة</h3>
-                <select id="currencySelect">
-                    <option value="USD">USD - دولار أمريكي</option>
-                    <option value="EGP">EGP - جنيه مصري</option>
-                    <option value="SAR">SAR - ريال سعودي</option>
-                </select>
-                <button onclick="confirmSelection()">تأكيد</button>
-              </div> {% endcomment %}
-      
+          <!-- الزر -->
+    <button class="language-currency-btn" id="openMenu">
+    <img src="flag-eg.png" alt="العلم" class="flag-icon">
+    <span>العربية - EGP</span>
+</button>
+
+<!-- القائمة المنبثقة -->
+<div class="language-currency-menu" id="currencyMenu">
+    <div class="menu-header">
+        <span     style="color: #ff9500;">اختر اللغة والعملة</span>
+        <span class="close-btn" id="closeMenu">&times;</span>
+    </div>
+
+    <div class="menu-options">
+        <div class="menu-item" data-lang="ar" data-currency="EGP">
+            <img src="flag-eg.png" alt="العلم" class="flag-icon">
+            <span>العربية - الجنيه المصري (EGP)</span>
+        </div>
+        <div class="menu-item" data-lang="ar-sa" data-currency="SAR">
+            <img src="flag-sa.png" alt="العلم" class="flag-icon">
+            <span>العربية السعودية - الريال السعودي (SAR)</span>
+        </div>
+        <div class="menu-item" data-lang="en" data-currency="USD">
+            <img src="flag-us.png" alt="العلم" class="flag-icon">
+            <span>English - US Dollar (USD)</span>
+        </div>
+    </div>
+</div>
+
+        
+
+
               <div class="nav__toggle" id="nav-toggle">
                 <i class="ri-apps-2-fill"></i>
               </div>
@@ -513,13 +509,13 @@
         <section class="menu section bd-container" id="menu">
             <h2 class="section-title">Files without tracking</h2>
         
-            <div class="menu__select-container">
+            {% comment %} <div class="menu__select-container">
                 <select class="menu__select">
                     <option value="USD">USD - دولار أمريكي</option>
                     <option value="EGP">EGP - جنيه مصري</option>
                     <option value="SAR">SAR - ريال سعودي</option>
                 </select>
-            </div>
+            </div> {% endcomment %}
         
             <div class="menu__container bd-grid">
                 <div class="menu__content" data-package="package1">
@@ -666,7 +662,7 @@
         });
     </script>
     <script src="https://app.embed.im/spark.js" defer></script>
-    <script>
+    {% comment %} <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const paymentLinks = {
                 "EGP": {
@@ -758,8 +754,133 @@
             await initializeCurrency();
         });
         
+    </script> {% endcomment %}
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const openMenuButton = document.getElementById("openMenu");
+            const closeMenuButton = document.getElementById("closeMenu");
+            const menu = document.getElementById("currencyMenu");
+            const menuOptions = document.querySelectorAll(".menu-item");
+        
+            const paymentLinks = {
+                "EGP": {
+                    "package1": "https://app.fawaterk.com/paymentRequest/show/18645",
+                    "package2": "https://app.fawaterk.com/paymentRequest/show/18646",
+                    "package3": "https://app.fawaterk.com/paymentRequest/show/18647"
+                },
+                "SAR": {
+                    "package1": "https://app.fawaterk.com/paymentRequest/show/18651",
+                    "package2": "https://app.fawaterk.com/paymentRequest/show/18652",
+                    "package3": "https://app.fawaterk.com/paymentRequest/show/18653"
+                },
+                "USD": {
+                    "package1": "https://app.fawaterk.com/paymentRequest/show/18648",
+                    "package2": "https://app.fawaterk.com/paymentRequest/show/18649",
+                    "package3": "https://app.fawaterk.com/paymentRequest/show/18650"
+                }
+            };
+        
+            const prices = {
+                "EGP": {
+                    "package1": "150 EGP",
+                    "package2": "980 EGP",
+                    "package3": "1503 EGP"
+                },
+                "USD": {
+                    "package1": "$55",
+                    "package2": "$97",
+                    "package3": "$39"
+                },
+                "SAR": {
+                    "package1": "66 SAR",
+                    "package2": "163 SAR",
+                    "package3": "79 SAR"
+                }
+            };
+        
+            async function detectLocationCurrency() {
+                try {
+                    const response = await fetch("https://ipapi.co/json/");
+                    const data = await response.json();
+                    const country = data.country_code;
+        
+                    if (country === "EG") return "EGP";
+                    if (country === "SA") return "SAR";
+                    return "USD";
+                } catch (error) {
+                    return "USD";
+                }
+            }
+        
+            async function initializeCurrency() {
+                let savedCurrency = localStorage.getItem("selectedCurrency");
+                if (!savedCurrency) {
+                    savedCurrency = await detectLocationCurrency();
+                    localStorage.setItem("selectedCurrency", savedCurrency);
+                }
+                updatePackages(savedCurrency);
+            }
+        
+            function updatePackages(currency) {
+                localStorage.setItem("selectedCurrency", currency);
+                document.querySelectorAll(".menu__content").forEach(menuContent => {
+                    const packageType = menuContent.getAttribute("data-package");
+                    const button = menuContent.querySelector(".menu__button");
+                    const priceTag = menuContent.querySelector(".menu__preci");
+        
+                    if (paymentLinks[currency] && paymentLinks[currency][packageType]) {
+                        button.href = paymentLinks[currency][packageType];
+                        priceTag.textContent = prices[currency][packageType];
+                    } else {
+                        button.href = "#";
+                    }
+                });
+        
+                const currencyText = {
+                    "EGP": "العربية - الجنيه المصري (EGP)",
+                    "SAR": "العربية - الريال السعودي (SAR)",
+                    "USD": "English - US Dollar (USD)"
+                };
+        
+                document.getElementById("openMenu").querySelector("span").textContent = currencyText[currency];
+            }
+        
+            function openMenu() {
+                menu.classList.add("active");
+                menu.style.display = "block"; // تأكد أن القائمة تظهر فورًا
+            }
+        
+            function closeMenu() {
+                menu.classList.remove("active");
+                menu.style.display = "none"; // إخفاء القائمة فورًا بدون أي تأخير
+            }
+        
+            openMenuButton.addEventListener("click", function () {
+                openMenu();
+            });
+        
+            menuOptions.forEach(item => {
+                item.addEventListener("click", function () {
+                    const currency = this.getAttribute("data-currency");
+                    updatePackages(currency);
+                    closeMenu(); // يغلق القائمة عند اختيار عملة
+                });
+            });
+        
+            closeMenuButton.addEventListener("click", function () {
+                closeMenu();
+            });
+        
+            document.addEventListener("click", function (event) {
+                if (!menu.contains(event.target) && event.target !== openMenuButton) {
+                    closeMenu(); // يغلق فقط عند الضغط خارج القائمة
+                }
+            });
+        
+            await initializeCurrency();
+        });
+        
     </script>
-    
 </body>
 
 </html>
