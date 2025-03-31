@@ -1084,8 +1084,8 @@
     .language-currency-btn {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 10px 15px;
+        gap: 7px;
+        padding: 6px 8px;
         background: #f0f0f0;
         border-radius: 25px;
         border: none;
@@ -1093,7 +1093,8 @@
         font-size: 16px;
         font-weight: bold;
         transition: background 0.3s ease-in-out;
-        width: 12rem;
+        width: 13rem;
+        margin-left: 2rem;
     }
     
     .language-currency-btn:hover {
@@ -1191,9 +1192,9 @@
     
     @media (max-width: 480px) {
         .language-currency-btn {
-            font-size: 13px;
-            padding: 6px 10px;
-            width: 13rem;
+            font-size: 11px;
+            padding: 3px 5px;
+            width: 12rem;
         }
         .flag-icon {
             width: 18px;
@@ -1851,7 +1852,7 @@
         }
         .nav__list {
             flex-direction: row;
-            column-gap: 4rem;
+            column-gap: 2rem;
         }
         .nav__link {
             font-size: var(--normal-font-size);
