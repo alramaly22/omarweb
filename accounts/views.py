@@ -12,6 +12,8 @@ def calc(request):
     return render(request, 'accounts/calc.html')
 def test1(request):
     return render(request, 'accounts/test1.html')
+def test2(request):
+    return render(request, 'accounts/test2.html')
 
 
 def paid_webhook(request):
