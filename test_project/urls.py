@@ -8,7 +8,7 @@ from accounts import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('about.html', views.about, name='about'),
-
+    path('test2.html', views.test2, name='test2'),
     path('calc/', views.calc, name='calc'),
     path('test1/', views.calc, name='test1'),
     path('webhook/paid/', views.paid_webhook, name='paid_webhook'),
