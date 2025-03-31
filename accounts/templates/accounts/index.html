@@ -23,7 +23,7 @@
     <!--==================== HEADER ====================-->
     <header class="header" id="header">
         <nav class="nav container">
-            <a href="{% url 'index' %}" class="nav__logo"><img style="width: 45%;" src="{% static 'assets/img/logo-2.svg' %}" alt="" class="logohat"></a>
+            <a href="{% url 'index' %}" class="nav__logo"><img style="width:70%;" src="{% static 'assets/img/logo-2.svg' %}" alt="" class="logohat"></a>
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li>
@@ -41,6 +41,11 @@
                     <li>
                         <a href="#testimonial" class="nav__link">
                             TESTIMONIAL
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#menu" class="nav__link">
+                            Package
                         </a>
                     </li>
 
@@ -589,7 +594,7 @@
                         </div>
                     </div>
 
-                    <a href="calc.html" class="button">
+                    <a href="{% url 'test2' %}" class="button">
                         <p data-lang="button">Get Start</p> <i class="ri-arrow-right-down-line button__icon"></i>
                     </a>
                 </div>
