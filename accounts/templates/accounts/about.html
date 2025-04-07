@@ -52,46 +52,39 @@
             <i class="ri-close-large-line"></i>
           </div>
         </div>
-
-        <div class="navbar2">
-          <button class="language-btn" id="languageButton">
-            <span class="flag-icon">🇬🇧</span>
-            <span id="selectedLanguage">English</span> |
-            <span id="selectedCurrency">EGP</span>
-          </button>
-        </div>
-
-        <div class="popup" id="popup">
-          <span class="close-btn" onclick="togglePopup()">&times;</span>
-          <h3>اللغة</h3>
-          <label class="lang-option" onclick="selectLanguage('العربية', '🇸🇦')">
-            <input type="radio" name="language" value="العربية" /> العربية
-          </label>
-          <label class="lang-option" onclick="selectLanguage('English', '🇬🇧')">
-            <input type="radio" name="language" value="English" /> English
-          </label>
-          <label class="lang-option" onclick="selectLanguage('فارسی', '🇮🇷')">
-            <input type="radio" name="language" value="فارسی" /> فارسی
-          </label>
-          <label class="lang-option" onclick="selectLanguage('Türkçe', '🇹🇷')">
-            <input type="radio" name="language" value="Türkçe" /> Türkçe
-          </label>
-          <label class="lang-option" onclick="selectLanguage('اردو', '🇵🇰')">
-            <input type="radio" name="language" value="اردو" /> اردو
-          </label>
-
-          <h3>العملة</h3>
-          <select id="currencySelect">
-            <option value="EGP">جنيه مصري</option>
-            <option value="USD">دولار أمريكي</option>
-            <option value="SAR">ريال سعودي</option>
-            <option value="EUR">يورو</option>
-          </select>
-
-          <button class="confirm-btn" onclick="confirmSelection()">
-            موافق
-          </button>
-        </div>
+        <button type="button" id="openCurrencyMenu" class="btn--rounded-gray">
+          <span class="flag-icon" id="currentFlag">
+              <img src="{% static 'assets/img/usd.webp' %}" width="20" />
+          </span>
+          <span class="mx-1.5">|</span>
+          <span id="currentCurrency">USD</span>
+      </button>
+      
+      <div class="language-currency-menu popup" id="currencyMenu">
+          <div class="menu-header">
+              <span style="color: #ff9500;">اختر اللغة والعملة</span>
+              <span class="close-btn" id="closeMenu">&times;</span>
+          </div>
+      
+          <div class="menu-options">
+              <div class="menu-item" data-lang="ar" data-currency="EGP" data-flag="eg.png">
+                  <img src="{% static 'assets/img/eg.png' %}" alt="العلم المصري" class="flag-icon">
+                  <span>العربية - الجنيه المصري (EGP)</span>
+              </div>
+              <div class="menu-item" data-lang="ar" data-currency="SAR" data-flag="saudi.webp">
+                  <img src="{% static 'assets/img/saudi.webp' %}" alt="العلم السعودي" class="flag-icon">
+                  <span>العربية - الريال السعودي (SAR)</span>
+              </div>
+              <div class="menu-item" data-lang="ar" data-currency="AED" data-flag="unitearab.webp">
+                  <img src="{% static 'assets/img/unitearab.webp' %}" alt="العلم الإماراتي" class="flag-icon">
+                  <span>العربية - الدرهم الإماراتي (AED)</span>
+              </div>
+              <div class="menu-item" data-lang="en" data-currency="USD" data-flag="usd.webp">
+                  <img src="{% static 'assets/img/usd.webp' %}" alt="العلم الأمريكي" class="flag-icon">
+                  <span>English - US Dollar (USD)</span>
+              </div>
+          </div>
+      </div>
 
         <div class="nav__toggle" id="nav-toggle">
           <i class="ri-apps-2-fill"></i>
@@ -503,14 +496,17 @@
               <div class="popular__shadow"></div>
             </div>
           </article>
+         
         </div>
+        
         <div class="te">
-          {% comment %}
-          <a data-lang="subscr" href="{% url 'pricing' %}" class="button"
-            >Join now</a
-          >
-          {% endcomment %}
+         
+          <a href="" class="button">
+            <p data-lang="button">See More</p> <i class="ri-instagram-line button__icon"></i>
+        </a>
+          
         </div>
+        
       </section>
     </main>
 
@@ -520,17 +516,33 @@
         <div>
           <h3 class="footer__title">Social</h3>
           <div class="footer__social">
-            <a href="#" target="_blank" class="footer__social-link">
-              <i class="ri-facebook-circle-line"></i>
-            </a>
-            <a href="#" target="_blank" class="footer__social-link">
-              <i class="ri-instagram-line"></i>
-            </a>
-            <a href="#" target="_blank" class="footer__social-link">
-              <i class="ri-tiktok-line"></i>
-            </a>
+             
+              <a href="https://www.tiktok.com/@omarelmahdyy_?_t=ZS-8v847sHiWrA&_r=1" target="_blank" class="footer__social-link">
+                  <i class="ri-tiktok-fill"></i>
+              </a>
+            
+              <a href="https://www.instagram.com/omarelmahdyy_?igsh=MThkNHpia2R0Y2Nzcg%3D%3D&utm_source=qr" target="_blank" class="footer__social-link">
+                  <i class="ri-instagram-line"></i>
+              </a>
+
+              <a href="https://www.instagram.com/omarelmahdyy_transformations?igsh=MWR3czYwc3ZhZWh2cg==" target="_blank" class="footer__social-link">
+                  <i class="ri-instagram-fill"></i>
+              </a>
+
+              <a href="https://www.facebook.com/share/157LKGppDq/?mibextid=wwXIfr" target="_blank" class="footer__social-link">
+                  <i class="ri-facebook-circle-fill"></i>
+              </a>
+
+              <a href="http://wa.me/201123453575" target="_blank" class="footer__social-link">
+                  <i class="ri-whatsapp-fill"></i>
+              </a>
+
+              <a href="https://youtube.com/@omarelmahdyy?si=qz5f3L4A3ambjjrb" target="_blank" class="footer__social-link">
+                  <i class="ri-youtube-fill"></i>
+              </a>
+              
           </div>
-        </div>
+      </div>
         <div>
           <h3 class="footer__title">Payment Method</h3>
           <div class="footer__pay">
@@ -576,26 +588,92 @@
 
     <!--=============== SCRIPTS ===============-->
     <script>
-      function togglePopup() {
-        document.getElementById("popup").classList.toggle("show");
-      }
-
-      function selectLanguage(language, flag) {
-        document.getElementById("selectedLanguage").innerText = language;
-        document.querySelector(".language-btn .flag-icon").innerText = flag;
-      }
-
-      function confirmSelection() {
-        const currency = document.getElementById("currencySelect").value;
-        document.getElementById("selectedCurrency").innerText = currency;
-        togglePopup();
-      }
-
-      document
-        .getElementById("languageButton")
-        .addEventListener("click", togglePopup);
-    </script>
-
+      document.addEventListener('DOMContentLoaded', () => {
+          const openBtn = document.getElementById('openCurrencyMenu');
+          const closeBtn = document.getElementById('closeMenu');
+          const menu = document.getElementById('currencyMenu');
+          const menuItems = document.querySelectorAll('.menu-item');
+          const currentCurrencyEl = document.getElementById('currentCurrency');
+          const currentFlag = document.getElementById('currentFlag');
+          const priceEls = document.querySelectorAll('.menu__preci');
+          
+          const basePrices = {
+              package1: 55, // USD
+              package2: 97,
+              package3: 39
+          };
+          
+          const exchangeRates = {
+              USD: 1,
+              EGP: 30.9,
+              SAR: 3.75,
+              AED: 3.67
+          };
+      
+          const countryCurrencyMapping = {
+              'EGP': 'مصر',
+              'SAR': 'السعودية',
+              'AED': 'الإمارات',
+              'USD': 'أمريكا'
+          };
+      
+          let selectedCurrency = 'USD'; // default
+      
+          // Get user's IP info (using ipinfo.io)
+          const ipInfoUrl = 'https://ipinfo.io/json?token=5f01ba4857444e';
+          fetch(ipInfoUrl)
+              .then(response => response.json())
+              .then(data => {
+                  const userCountry = data.country;
+                  const currency = getCurrencyForCountry(userCountry);
+                  setCurrency(currency);
+              });
+      
+          // Map country to currency
+          function getCurrencyForCountry(country) {
+              if (country === 'EG') return 'EGP';
+              if (country === 'SA') return 'SAR';
+              if (country === 'AE') return 'AED';
+              return 'USD'; // Default to USD
+          }
+      
+          function setCurrency(currency) {
+              selectedCurrency = currency;
+              currentCurrencyEl.textContent = currency;
+              currentFlag.innerHTML = `<img src="{% static 'assets/img/${currency.toLowerCase()}.png' %}" width="20">`;
+      
+              priceEls.forEach((el, index) => {
+                  const packageName = `package${index + 1}`;
+                  const usdPrice = basePrices[packageName];
+                  const converted = (usdPrice * exchangeRates[currency]).toFixed(2);
+                  el.textContent = currency === 'USD' ? `$${usdPrice}` : `${converted} ${currency}`;
+              });
+          }
+      
+          openBtn.addEventListener('click', () => {
+              menu.classList.add('show');
+          });
+      
+          closeBtn.addEventListener('click', () => {
+              menu.classList.remove('show');
+          });
+      
+          menuItems.forEach(item => {
+              item.addEventListener('click', () => {
+                  const currency = item.getAttribute('data-currency');
+                  setCurrency(currency);
+                  menu.classList.remove('show');
+              });
+          });
+      
+          // Initial prices update
+          priceEls.forEach((el, index) => {
+              const packageName = `package${index + 1}`;
+              const usdPrice = basePrices[packageName];
+              el.textContent = `$${usdPrice}`;
+          });
+      });
+  </script>
     <!--=============== SWIPER JS ===============-->
     <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
 

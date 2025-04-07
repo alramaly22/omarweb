@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="ar" dir="rtl">
+<html >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -218,44 +218,86 @@
 
   <body>
     <!--==================== HEADER ====================-->
-    <header class="header" id="header">
-      <nav class="nav container">
-        <a href="{% url 'index' %}" class="nav__logo">
-          <img
-            style="width: 45%"
-            src="{% static 'assets/img/logo-2.svg' %}"
-            alt=""
-            class="logohat"
-          />
-        </a>
+   <!--==================== HEADER ====================-->
+   <header class="header" id="header">
+    <nav class="nav container">
+        <a href="{% url 'index' %}" class="nav__logo"><img style="width:75%;" src="{% static 'assets/img/logo-2.svg' %}" alt="" class="logohat"></a>
         <div class="nav__menu" id="nav-menu">
-          <ul class="nav__list">
-            <li>
-              <a href="{% url 'index' %}#home" class="nav__link">HOME</a>
-            </li>
-            <li>
-              <a href="{% url 'about' %}" class="nav__link">ABOUT US</a>
-            </li>
-            <li>
-              <a href="{% url 'index' %}#trans" class="nav__link"
-                >TRANSFORMATION</a
-              >
-            </li>
-            <li>
-              <a href="{% url 'index' %}#testimonial" class="nav__link"
-                >TESTIMONIAL</a
-              >
-            </li>
-          </ul>
-          <div class="nav__close" id="nav-close">
-            <i class="ri-close-large-line"></i>
+            <ul class="nav__list">
+                <li>
+                    <a href="{% url 'index' %}" class="nav__link">HOME</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'about' %}" class="nav__link">ABOUT </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'index' %}#trans" class="nav__link">TRANSFORMATION</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'index' %}#testimonial" class="nav__link">
+                        TESTIMONIAL
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'index' %}#menu" class="nav__link">
+                        Package
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'test2' %}" class="nav__link">CALCULATOR</a>
+                </li>
+            </ul>
+            <div class="nav__colse" id="nav-close">
+                <i class="ri-close-large-line"></i>
+            </div>
+        </div>
+        <button  type="button" id="openCurrencyMenu" class="btn--rounded-gray">
+            <span class="flag-icon" id="currentFlag">
+                <img src="{% static 'assets/img/usd.webp' %}" width="20" />
+            </span>
+            <span class="mx-1.5">|</span>
+            <span id="currentCurrency">USD</span>
+        </button>
+        
+        <div class="language-currency-menu popup" id="currencyMenu">
+            <div class="menu-header">
+                <span style="color: #ff9500;">اختر اللغة والعملة</span>
+                <span class="close-btn" id="closeMenu">&times;</span>
+            </div>
+        
+            <div class="menu-options">
+                <div class="menu-item" data-lang="ar" data-currency="EGP" data-flag="eg.png">
+                    <img src="{% static 'assets/img/eg.png' %}" alt="العلم المصري" class="flag-icon">
+                    <span>العربية - الجنيه المصري (EGP)</span>
+                </div>
+                <div class="menu-item" data-lang="ar" data-currency="SAR" data-flag="saudi.webp">
+                    <img src="{% static 'assets/img/saudi.webp' %}" alt="العلم السعودي" class="flag-icon">
+                    <span>العربية - الريال السعودي (SAR)</span>
+                </div>
+                <div class="menu-item" data-lang="ar" data-currency="AED" data-flag="unitearab.webp">
+                    <img src="{% static 'assets/img/unitearab.webp' %}" alt="العلم الإماراتي" class="flag-icon">
+                    <span>العربية - الدرهم الإماراتي (AED)</span>
+                </div>
+                <div class="menu-item" data-lang="en" data-currency="USD" data-flag="usd.webp">
+                    <img src="{% static 'assets/img/usd.webp' %}" alt="العلم الأمريكي" class="flag-icon">
+                    <span>English - US Dollar (USD)</span>
+                </div>
+            </div>
+        </div>
+
+
+    
+
+
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-apps-2-fill"></i>
           </div>
-        </div>
-        <div class="nav__toggle" id="nav-toggle">
-          <i class="ri-apps-2-fill"></i>
-        </div>
-      </nav>
-    </header>
+    </nav>
+</header>
 
     <div class="containerii">
       <h1>حاسبة السعرات الحرارية</h1>
@@ -417,6 +459,94 @@
         }
       });
     </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const openBtn = document.getElementById('openCurrencyMenu');
+          const closeBtn = document.getElementById('closeMenu');
+          const menu = document.getElementById('currencyMenu');
+          const menuItems = document.querySelectorAll('.menu-item');
+          const currentCurrencyEl = document.getElementById('currentCurrency');
+          const currentFlag = document.getElementById('currentFlag');
+          const priceEls = document.querySelectorAll('.menu__preci');
+          
+          const basePrices = {
+              package1: 55, // USD
+              package2: 97,
+              package3: 39
+          };
+          
+          const exchangeRates = {
+              USD: 1,
+              EGP: 30.9,
+              SAR: 3.75,
+              AED: 3.67
+          };
+      
+          const countryCurrencyMapping = {
+              'EGP': 'مصر',
+              'SAR': 'السعودية',
+              'AED': 'الإمارات',
+              'USD': 'أمريكا'
+          };
+      
+          let selectedCurrency = 'USD'; // default
+      
+          // Get user's IP info (using ipinfo.io)
+          const ipInfoUrl = 'https://ipinfo.io/json?token=5f01ba4857444e';
+          fetch(ipInfoUrl)
+              .then(response => response.json())
+              .then(data => {
+                  const userCountry = data.country;
+                  const currency = getCurrencyForCountry(userCountry);
+                  setCurrency(currency);
+              });
+      
+          // Map country to currency
+          function getCurrencyForCountry(country) {
+              if (country === 'EG') return 'EGP';
+              if (country === 'SA') return 'SAR';
+              if (country === 'AE') return 'AED';
+              return 'USD'; // Default to USD
+          }
+      
+          function setCurrency(currency) {
+              selectedCurrency = currency;
+              currentCurrencyEl.textContent = currency;
+              currentFlag.innerHTML = `<img src="{% static 'assets/img/${currency.toLowerCase()}.png' %}" width="20">`;
+      
+              priceEls.forEach((el, index) => {
+                  const packageName = `package${index + 1}`;
+                  const usdPrice = basePrices[packageName];
+                  const converted = (usdPrice * exchangeRates[currency]).toFixed(2);
+                  el.textContent = currency === 'USD' ? `$${usdPrice}` : `${converted} ${currency}`;
+              });
+          }
+      
+          openBtn.addEventListener('click', () => {
+              menu.classList.add('show');
+          });
+      
+          closeBtn.addEventListener('click', () => {
+              menu.classList.remove('show');
+          });
+      
+          menuItems.forEach(item => {
+              item.addEventListener('click', () => {
+                  const currency = item.getAttribute('data-currency');
+                  setCurrency(currency);
+                  menu.classList.remove('show');
+              });
+          });
+      
+          // Initial prices update
+          priceEls.forEach((el, index) => {
+              const packageName = `package${index + 1}`;
+              const usdPrice = basePrices[packageName];
+              el.textContent = `$${usdPrice}`;
+          });
+      });
+  </script>
+   
     <script src="{% static 'assets/js/main.js' %}"></script>
   </body>
 </html>
