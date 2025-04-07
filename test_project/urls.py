@@ -10,7 +10,10 @@ urlpatterns = [
     path('about.html', views.about, name='about'),
     path('test2.html', views.test2, name='test2'),
     path('calc/', views.calc, name='calc'),
-    path('test1/', views.calc, name='test1'),
+    path('test1/', views.test1, name='test1'),
+    path('package1.html', views.package1, name='package1'),
     path('webhook/paid/', views.paid_webhook, name='paid_webhook'),
+    path('location/', views.location_view, name='location'),  # إضافة مسار للوصول إلى location_view
+
     path('admin/', admin.site.urls),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
